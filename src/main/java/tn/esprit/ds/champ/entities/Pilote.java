@@ -2,6 +2,8 @@ package tn.esprit.ds.champ.entities;
 
 import jakarta.persistence.*;
 
+import java.util.Set;
+
 @Entity
 public class Pilote {
 
@@ -14,4 +16,8 @@ public class Pilote {
     private Integer nbPointsTotal;
 
     private Integer classementGeneral;
+    @OneToMany(mappedBy = "Pilot")
+    private Set<Position> positions;
+    @ManyToOne
+    Equipe equipe;
 }

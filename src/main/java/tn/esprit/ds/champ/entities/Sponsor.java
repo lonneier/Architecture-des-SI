@@ -2,6 +2,8 @@ package tn.esprit.ds.champ.entities;
 
 import jakarta.persistence.*;
 
+import java.util.Set;
+
 @Entity
 public class Sponsor {
 
@@ -16,4 +18,8 @@ public class Sponsor {
     private Float budgetAnnuel;
 
     private Boolean bloquerContrat;
+
+    @OneToMany(mappedBy = "sponsor")
+    private Set<Contrat> contrats;
+
 }

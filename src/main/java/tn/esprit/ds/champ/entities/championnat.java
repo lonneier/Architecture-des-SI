@@ -2,6 +2,9 @@ package tn.esprit.ds.champ.entities;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+import java.util.Set;
+
 @Entity
 
 public class championnat {
@@ -59,5 +62,10 @@ public class championnat {
 
     public void annee(Integer annee) {
         this.annee = annee;}
+    @OneToOne
+    private DetailChampionnat detailChampionnat;
+    @ManyToMany
+    private Set<Course> courses;
 
     }
+
