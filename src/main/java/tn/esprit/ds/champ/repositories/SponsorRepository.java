@@ -6,7 +6,8 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import tn.esprit.ds.champ.entities.Sponsor;
 
 import java.util.List;
-
+import org.springframework.stereotype.Repository;
+@Repository
 public interface SponsorRepository extends JpaRepository<Sponsor, Long> {
 
 }

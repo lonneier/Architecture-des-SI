@@ -5,7 +5,10 @@ import tn.esprit.ds.champ.repositories.SponsorRepository;
 
 import java.time.LocalDate;
 import java.util.List;
-
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
+@Service
+@AllArgsConstructor
 public class SponsorService implements ISponsorService {
     private SponsorRepository sponsorRepository;
     @Override
