@@ -1,30 +1,37 @@
 package tn.esprit.ds.champ.services;
 
+import org.springframework.stereotype.Service;
 import tn.esprit.ds.champ.entities.Sponsor;
 import tn.esprit.ds.champ.repositories.SponsorRepository;
 
 import java.time.LocalDate;
 import java.util.List;
-import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Service;
+
 @Service
-@AllArgsConstructor
 public class SponsorService implements ISponsorService {
-    private SponsorRepository sponsorRepository;
+
+    private final SponsorRepository sponsorRepository;
+
+    // constructeur manuel
+    public SponsorService(SponsorRepository sponsorRepository) {
+        this.sponsorRepository = sponsorRepository;
+    }
+
     @Override
     public Sponsor ajouterSponsor(Sponsor sponsor) {
         sponsor.setDateCreation(LocalDate.now());
         sponsor.setArchived(false);
         sponsor.setBloquerContrat(false);
+
         return sponsorRepository.save(sponsor);
     }
 
     @Override
     public List<Sponsor> ajouterSponsors(List<Sponsor> sponsors) {
         for (Sponsor sponsor : sponsors) {
-            sponsor.setDateCreation(LocalDate.now()); // date système
-            sponsor.setArchived(false);                // valeur par défaut
-            sponsor.setBloquerContrat(false);           // valeur par défaut
+            sponsor.setDateCreation(LocalDate.now());
+            sponsor.setArchived(false);
+            sponsor.setBloquerContrat(false);
         }
         return sponsorRepository.saveAll(sponsors);
     }
@@ -38,7 +45,6 @@ public class SponsorService implements ISponsorService {
     @Override
     public void supprimerSponsor(Long idSponsor) {
         sponsorRepository.deleteById(idSponsor);
-
     }
 
     @Override
@@ -48,21 +54,20 @@ public class SponsorService implements ISponsorService {
 
     @Override
     public Sponsor recupererSponsor(Long idSponsor) {
-        return sponsorRepository.findById(idSponsor).get();
+        return sponsorRepository.findById(idSponsor).orElse(null);
     }
 
     @Override
     public Boolean archiverSponsor(Long idSponsor) {
         Sponsor sponsor = sponsorRepository.findById(idSponsor).orElse(null);
 
-        if (sponsor == null) {
-            return false; // sponsor introuvable
-        }
+        if (sponsor == null)
+            return false;
 
-        sponsor.setArchived(true); // archivage
+        sponsor.setArchived(true);
         sponsorRepository.save(sponsor);
 
         return true;
-
     }
 }
+
